@@ -40,33 +40,57 @@ public class AlarmReceiver extends BroadcastReceiver {
 
         //Handling the notifications, and attributes which will be displayed on front screen
         int color=context.getResources().getColor(R.color.LightSeaGreen);
-        
-      final  NotificationCompat.Builder builder = new NotificationCompat.Builder(context)
-              .setContentTitle(name)
-              .setContentText(location)
-              .setStyle(new NotificationCompat.BigTextStyle().bigText(description))
-              .setAutoCancel(true)
-              .setSmallIcon(R.drawable.slika3)
-              .setSound(soundUri)
-              .setTicker("New event")
-              .setColor(color)
-              .addAction(R.drawable.notification_location_icon, directionName, pIntent);
+
+        if (location.trim().length() == 0 ) {
+            final NotificationCompat.Builder builder = new NotificationCompat.Builder(context)
+                    .setContentTitle(name)
+                    .setContentText(location)
+                    .setStyle(new NotificationCompat.BigTextStyle().bigText(description))
+                    .setAutoCancel(true)
+                    .setSmallIcon(R.drawable.slika3)
+                    .setSound(soundUri)
+                    .setTicker("New event")
+                    .setColor(color);
+
+            //Handling the notification for Smart Watch
+            NotificationCompat.WearableExtender extender = new NotificationCompat.WearableExtender();
+            extender.setBackground(BitmapFactory.decodeResource(context.getResources(), (R.drawable.screen)));
+            extender.extend(builder);
+
+
+            NotificationManager nm = (NotificationManager) context
+                    .getSystemService(Context.NOTIFICATION_SERVICE);
+            nm.notify(0, builder.build());
+        }
+            else
+        {final NotificationCompat.Builder builder = new NotificationCompat.Builder(context)
+                .setContentTitle(name)
+                .setContentText(location)
+                .setStyle(new NotificationCompat.BigTextStyle().bigText(description))
+                .setAutoCancel(true)
+                .setSmallIcon(R.drawable.slika3)
+                .setSound(soundUri)
+                .setTicker("New event")
+                .setColor(color)
+                .addAction(R.drawable.notification_location_icon, directionName, pIntent);
+
+            //Handling the notification for Smart Watch
+            NotificationCompat.WearableExtender extender = new NotificationCompat.WearableExtender();
+            extender.setBackground(BitmapFactory.decodeResource(context.getResources(), (R.drawable.screen)));
+            extender.extend(builder);
+
+
+            NotificationManager nm = (NotificationManager) context
+                    .getSystemService(Context.NOTIFICATION_SERVICE);
+            nm.notify(0, builder.build());
+
+        }
 
 
 
-        //Handling the notification for Smart Watch
-        NotificationCompat.WearableExtender extender = new NotificationCompat.WearableExtender();
-        extender.setBackground(BitmapFactory.decodeResource(context.getResources(), (R.drawable.screen)));
-        extender.extend(builder);
 
 
-        NotificationManager nm = (NotificationManager) context
-               .getSystemService(Context.NOTIFICATION_SERVICE);
 
-
-        nm.notify(0, builder.build());
-
-        // testiranje
     }
 
 
