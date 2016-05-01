@@ -1,0 +1,17 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+    </style>
+
+
+    <style name="material" parent="android:style/Widget.Material.Button">
+        <item name="android:background">@drawable/raised_button_background</item>
+    </style>
+
+    <style name="dugme" parent="android:style/Widget.Material.Button">
+        <item name="android:background">@drawable/raised_button_background</item>
+    </style>
+
+</resources>
