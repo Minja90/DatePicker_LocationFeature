@@ -63,9 +63,10 @@ public class AlarmReceiver extends BroadcastReceiver {
         NotificationManager nm = (NotificationManager) context
                .getSystemService(Context.NOTIFICATION_SERVICE);
 
+
         nm.notify(0, builder.build());
 
-
+        // testiranje
     }
 
 
