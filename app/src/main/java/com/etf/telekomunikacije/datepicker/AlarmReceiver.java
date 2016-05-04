@@ -1,8 +1,6 @@
 package com.etf.telekomunikacije.datepicker;
 
 //importing necessary packages
-
-import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
@@ -12,9 +10,9 @@ import android.graphics.BitmapFactory;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.support.v4.app.NotificationCompat;
-import android.support.v4.app.NotificationManagerCompat;
 
-// Creating Alarm Receiver, who will listen upcomming events
+
+// Creating Alarm Receiver, who will listen upcoming events
 public class AlarmReceiver extends BroadcastReceiver {
 
     //Creating method on receive. When intnet is received on front screen we should see notification
@@ -26,11 +24,12 @@ public class AlarmReceiver extends BroadcastReceiver {
         String description = intent.getStringExtra(MainActivity.EVENT_DESCRIPTION);
         String location = intent.getStringExtra(MainActivity.EVENT_LOCATION);
 
+
+
         //setig up RingtonManger who will notify user about received notification
         Uri soundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
 
         //defining get direction part in notification
-
         String addrNew = location;
         String url = "http://maps.google.com/maps?daddr="+addrNew;
         Intent getDirection = new Intent(Intent.ACTION_VIEW,  Uri.parse(url));
@@ -42,43 +41,44 @@ public class AlarmReceiver extends BroadcastReceiver {
         int color=context.getResources().getColor(R.color.LightSeaGreen);
 
         if (location.trim().length() == 0 ) {
+
+            String detail = description;
+
+            //Handling the notification for Smart Watch
+            NotificationCompat.WearableExtender extender = new NotificationCompat.WearableExtender();
+            extender.setBackground(BitmapFactory.decodeResource(context.getResources(), (R.drawable.screen)));
+
+            //Handling notification for phone
             final NotificationCompat.Builder builder = new NotificationCompat.Builder(context)
                     .setContentTitle(name)
-                    .setContentText(location)
-                    .setStyle(new NotificationCompat.BigTextStyle().bigText(description))
+                    .setStyle(new NotificationCompat.BigTextStyle().bigText(detail))
                     .setAutoCancel(true)
                     .setSmallIcon(R.drawable.slika3)
                     .setSound(soundUri)
-                    .setTicker("New event")
-                    .setColor(color);
-
-            //Handling the notification for Smart Watch
-            NotificationCompat.WearableExtender extender = new NotificationCompat.WearableExtender();
-            extender.setBackground(BitmapFactory.decodeResource(context.getResources(), (R.drawable.screen)));
-            extender.extend(builder);
-
+                    .setColor(color)
+                    .extend(extender);
 
             NotificationManager nm = (NotificationManager) context
                     .getSystemService(Context.NOTIFICATION_SERVICE);
             nm.notify(0, builder.build());
+
         }
             else
-        {final NotificationCompat.Builder builder = new NotificationCompat.Builder(context)
-                .setContentTitle(name)
-                .setContentText(location)
-                .setStyle(new NotificationCompat.BigTextStyle().bigText(description))
-                .setAutoCancel(true)
-                .setSmallIcon(R.drawable.slika3)
-                .setSound(soundUri)
-                .setTicker("New event")
-                .setColor(color)
-                .addAction(R.drawable.notification_location_icon, directionName, pIntent);
+        {
+            String detail = location + '\n' + description;
 
-            //Handling the notification for Smart Watch
             NotificationCompat.WearableExtender extender = new NotificationCompat.WearableExtender();
             extender.setBackground(BitmapFactory.decodeResource(context.getResources(), (R.drawable.screen)));
-            extender.extend(builder);
 
+            final NotificationCompat.Builder builder = new NotificationCompat.Builder(context)
+                    .setContentTitle(name)
+                    .setStyle(new NotificationCompat.BigTextStyle().bigText(detail))
+                    .setAutoCancel(true)
+                    .setSmallIcon(R.drawable.slika3)
+                    .setSound(soundUri)
+                    .setColor(color)
+                    .extend(extender)
+                    .addAction(R.drawable.notification_location_icon, directionName, pIntent);
 
             NotificationManager nm = (NotificationManager) context
                     .getSystemService(Context.NOTIFICATION_SERVICE);
@@ -86,13 +86,6 @@ public class AlarmReceiver extends BroadcastReceiver {
 
         }
 
-
-
-
-
-
     }
-
-
 
 }

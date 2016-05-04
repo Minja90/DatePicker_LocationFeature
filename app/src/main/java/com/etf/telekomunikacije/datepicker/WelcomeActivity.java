@@ -10,10 +10,8 @@ import android.widget.TextView;
 
 public class WelcomeActivity extends Activity {
 
-
     ImageButton setButton;
     TextView welcome_text;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,15 +23,12 @@ public class WelcomeActivity extends Activity {
         setButton.setBackgroundDrawable(null);
         welcome_text.setGravity(Gravity.CENTER);
 
-
     }
 
 
     public void openActivity (View view) {
-
         Intent otvori = new Intent(this, MainActivity.class);
         WelcomeActivity.this.startActivity(otvori);
-
     }
 
 }

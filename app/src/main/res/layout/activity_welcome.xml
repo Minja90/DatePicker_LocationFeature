@@ -11,9 +11,6 @@
     android:focusableInTouchMode="true"
     android:clickable="true">
 
-
-
-
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -31,7 +28,14 @@
         android:text="@string/welcome_screen"
         android:textSize="30dp"
         android:id="@+id/welcome_text"
-        android:layout_centerInParent="true"
+        android:layout_centerInParent="true" />
 
-        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/click"
+        android:layout_below="@+id/setButton"
+        android:text="@string/click"
+        android:layout_centerInParent="true"
+        android:textSize="20dp" />
 </RelativeLayout>
