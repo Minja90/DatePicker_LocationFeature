@@ -11,6 +11,8 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.support.v4.app.NotificationCompat;
 
+import java.util.Random;
+
 
 // Creating Alarm Receiver, who will listen upcoming events
 public class AlarmReceiver extends BroadcastReceiver {
@@ -23,7 +25,6 @@ public class AlarmReceiver extends BroadcastReceiver {
         String name = intent.getStringExtra(MainActivity.EVENT_NAME);
         String description = intent.getStringExtra(MainActivity.EVENT_DESCRIPTION);
         String location = intent.getStringExtra(MainActivity.EVENT_LOCATION);
-
 
 
         //setig up RingtonManger who will notify user about received notification
@@ -60,7 +61,10 @@ public class AlarmReceiver extends BroadcastReceiver {
 
             NotificationManager nm = (NotificationManager) context
                     .getSystemService(Context.NOTIFICATION_SERVICE);
-            nm.notify(0, builder.build());
+
+            Random random = new Random();
+
+            nm.notify(random.nextInt(), builder.build());
 
         }
             else
@@ -82,7 +86,10 @@ public class AlarmReceiver extends BroadcastReceiver {
 
             NotificationManager nm = (NotificationManager) context
                     .getSystemService(Context.NOTIFICATION_SERVICE);
-            nm.notify(0, builder.build());
+
+            Random random = new Random();
+
+            nm.notify(random.nextInt(), builder.build());
 
         }
 
